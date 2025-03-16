@@ -5,6 +5,7 @@ import { addTodo } from "../../redux/action";
 // Tự động tạo ra id không trùng
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import { todoListSelector } from "../../redux/selectors";
 
 export default function TodoList() {
   console.log("Re render lại");
@@ -12,7 +13,7 @@ export default function TodoList() {
   const [todoName, setTodoName] = useState("");
   const [priority, setPriority] = useState("Medium");
   // lấy ra dữ liệu từ kho chung
-  const todoList = useSelector((state) => state.todoList);
+  const todoList = useSelector(todoListSelector);
   const handleInputChange = (event) => {
     const value = event.target.value;
     // Khiến bị re-render lại
@@ -37,9 +38,9 @@ export default function TodoList() {
   return (
     <Row style={{ height: "calc(100% - 40px)" }}>
       <Col span={24} style={{ height: "calc(100% - 40px)", overflowY: "auto" }}>
-        <Todo name="Learn React" prioriry="High" />
-        <Todo name="Learn Redux" prioriry="Medium" />
-        <Todo name="Learn JavaScript" prioriry="Low" />
+        {todoList.map((todo) => (
+          <Todo key={todo.id} name={todo.name} prioriry={todo.priority} />
+        ))}
       </Col>
       <Col span={24}>
         <Space.Compact style={{ display: "flex" }}>
