@@ -4,7 +4,7 @@ const initState = {
   priority: [],
 };
 
-const filterReducer = (state = initState, action) => {
+const filtersReducer = (state = initState, action) => {
   switch (action.type) {
     case "filter/searchFilterChange": {
       return {
@@ -17,4 +17,4 @@ const filterReducer = (state = initState, action) => {
   }
 };
 
-export default filterReducer;
+export default filtersReducer;
